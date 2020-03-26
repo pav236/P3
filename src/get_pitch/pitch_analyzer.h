@@ -7,8 +7,8 @@
 #include <algorithm>
 
 namespace upc {
-  const float MIN_F0 = 20.0F;    ///< Minimum value of pitch in Hertzs
-  const float MAX_F0 = 10000.0F; ///< Maximum value of pitch in Hertzs
+  const float MIN_F0 = -20.0F;    ///< Minimum value of pitch in Hertzs
+  const float MAX_F0 = 100000.0F; ///< Maximum value of pitch in Hertzs
 
   ///
   /// PitchAnalyzer: class that computes the pitch (in Hz) from a signal frame.
@@ -30,7 +30,7 @@ namespace upc {
       samplingFreq, ///< sampling rate (in samples per second). Has to be set in the constructor call
       npitch_min, ///< minimum value of pitch period, in samples
       npitch_max; ///< maximum value of pitch period, in samples
- 
+
 	///
 	/// Computes correlation from lag=0 to r.size()
 	///
@@ -40,7 +40,7 @@ namespace upc {
 	/// Returns the pitch (in Hz) of input frame x
 	///
     float compute_pitch(std::vector<float> & x) const;
-	
+
 	///
 	/// Returns true is the frame is unvoiced
 	///
@@ -97,7 +97,7 @@ namespace upc {
       std::copy(begin, end, x.begin()); //copy input values into local vector x
       return compute_pitch(x);
     }
-    
+
 	///
     /// Sets pitch range: takes min_F0 and max_F0 in Hz, sets npitch_min and npitch_max in samples
 	///

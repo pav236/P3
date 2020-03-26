@@ -15,17 +15,56 @@ Ejercicios básicos
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
 
+     void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
+
+      for (unsigned int l = 0; l < r.size(); ++l) {
+        /// \TODO Compute the autocorrelation r[l]
+        for(unsigned int n = 0; l < x.size()-1-l; n++){
+          r[l] = x[n]*x[n+l] + r[l];
+        }
+          r[l] = (1.0F/x.size())*r[l];
+      }
+
+      if (r[0] == 0.0F) //to avoid log() and divide zero 
+        r[0] = 1e-10; 
+    }
+
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un sonido sonoro
      y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la
 	 posición del primer máximo secundario.
+
+   Con la señal completa tendriamos:
+    <img src="img/3.PNG" width="640" align="center">
+
+    El codigo usado es el siguiente:
+    <img src="img/4.PNG" width="640" align="center">
+
+    Recortamos el sonido sonoro y lo representamos en la gráfica:
+    <img src="img/6.PNG" width="640" align="center">
+
+    Marcamos el periodo de pitch que es de 38ms:
+    <img src="img/7.PNG" width="640" align="center">
+
+    Podriamos verlo también en la gráfica anterior,donde hemos hecho zoom:
+    <img src="img/8.PNG" width="640" align="center">
+
+    Ahora veremos la autocorrelación de la señal y la posición del primer máximo secundario:
+    <img src="img/10.PNG" width="640" align="center">
+    <img src="img/9.PNG" width="640" align="center">
+
+    Es correcto ya que vemos que tenemos 2N-1 muestras y el máximo centrado en la posición N que como vemos en la imagen corresponde al valor del eje Y 47500.
+
 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la librería matplotlib de Python.
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
-
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
+    <img src="img/11.PNG" width="640" align="center">   //REVISRA CANVIS I DETERMINAR MILLOR CANDIDAT PER EL PERIODE
+    <img src="img/12.PNG" width="640" align="center">
+    <img src="img/13.PNG" width="640" align="center">
+
 
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
@@ -42,6 +81,8 @@ Ejercicios básicos
 
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
 		en esta práctica es de 15 ms.
+    
+    
 
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica

@@ -12,6 +12,10 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
+      for(unsigned int n = 0; n < x.size()-1-l; ++n){
+        r[l] = x[n]*x[n+l] + r[l];
+      }
+        r[l] = (1.0F/x.size())*r[l];
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
@@ -25,9 +29,16 @@ namespace upc {
     window.resize(frameLen);
 
     switch (win_type) {
-    case HAMMING:
+    case HAMMING:{
       /// \TODO Implement the Hamming window
-      break;
+      float a0 = 0.53836F;
+      float a1 = 0.46164F;
+      for(unsigned int i = 0; i < frameLen; ++i){
+        window[i] = a0-a1*cos((2*M_PI*i)/(frameLen-1));
+      }
+    }
+    break;
+
     case RECT:
     default:
       window.assign(frameLen, 1);
@@ -50,7 +61,12 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    return true;
+    if ((pot < -39.0F || r1norm < 0.895F) && rmaxnorm < 0.48F)
+    //if ((pot <= 0.0003F || r1norm < 1.44F) && rmaxnorm < 0.48F)
+    //if((r1norm < 0.25F || pot < 0.0005F) && rmaxnorm > 0.425F)  
+      return true;
+    else
+      return false;
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -75,7 +91,43 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
+    /*float max = -1e-40;
 
+    bool negative = true;
+    while(negative || (iR - r.begin()) < npitch_min){
+      if(*iR < 0)
+        negative = false;
+      ++iR;
+    }
+
+    while((iR - r.begin()) < npitch_max){
+      if(*iR > max){
+        iRMax = iR;
+        max = *iR;
+      }
+      ++iR;
+    }
+
+    unsigned int lag = 0;
+
+    if (iRMax != r.end())
+      lag = iRMax - r.begin();
+    
+    float pot  = 10 * log10(r[0]);*/
+
+    while(*iR > 0){
+      ++iR;
+    }
+    if (iR<r.begin() + npitch_min)
+      iR += npitch_min;
+    iRMax = iR;
+      while(iR != r.end()){
+    if(*iR > *iRMax){
+      iRMax = iR; //iRmax: Posición donde está el máximo
+    }
+    ++iR;
+    }
+    //cout << *iRMax << endl;
     unsigned int lag = iRMax - r.begin();
 
     float pot = 10 * log10(r[0]);
