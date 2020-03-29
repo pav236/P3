@@ -61,7 +61,7 @@ Ejercicios básicos
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
-    <img src="img/11.PNG" width="640" align="center">   //REVISRA CANVIS I DETERMINAR MILLOR CANDIDAT PER EL PERIODE
+    <img src="img/11.PNG" width="640" align="center">   
     <img src="img/12.PNG" width="640" align="center">
     <img src="img/13.PNG" width="640" align="center">
 
@@ -136,7 +136,7 @@ Ejercicios básicos
    Hemos conseguido desarrollar un sistema de detección de pitch basado en la autocorrelación aun sabiendo que es un sistema
    que introduce errores en zonas de ruido cosa que afecta al obtener el grado de error.
    De todos modos, los resultados obtenidos son bastante positivos dado el alto porcentaje de éxito. Hemos tenido dificultades
-   con el tema de ejecución de la práctica pero finalmente lo pudimos arreglar. Hemos aprendido mucho con esta práctica. 
+   con el tema de ejecución de la práctica pero finalmente lo pudimos arreglar. Hemos aprendido mucho con esta práctica.
 
 
 Ejercicios de ampliación
