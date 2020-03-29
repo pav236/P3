@@ -85,12 +85,6 @@ Ejercicios básicos
     <img src="img/16.PNG" width="640" align="center">
     <img src="img/17.PNG" width="640" align="center">
 
-
-
-        //la primera es punteao, la segunda es referncia i la tercera es .fo nostre. després ve potencia i audio .wav. explicar als comentaris que no tots ens funcionaven. home i dona. falta pitch_evaluate.
-        //en el de la dona que es sb, tenim que es pot, cont, ref, f0 normal i audio wav.
-
-
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
@@ -98,6 +92,21 @@ Ejercicios básicos
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos
 	`pitch_db/train`..
+
+  Para evaluar la base de datos primero adjuntamos el primer resultado de los parámetros sobre un archivo de audio aleatorio:
+  <img src="img/26.png" width="640" align="center">
+
+  Posteriormente, diferenciamos entre un audio de mujer y uno de hombre siendo primero el del hombre.
+  <img src="img/27.png" width="640" align="center">
+  <img src="img/23.png" width="640" align="center">
+
+  Por último vemos el resumen con la base de datos entera.
+  <img src="img/24.png" width="640" align="center">
+
+  Al principio tuvimos un problema ya que no nos aparecia toda la base de datos, es decir, solo se nos ejectuban algunas. Finalmente, vimos que el error se encontraba en la librería libsndfile. Una vez hechas las comprobaciones y actualizado la libreria, vemos que se nos ejecuta toda la base de datos sin problemas:
+  <img src="img/25.png" width="640" align="center">
+
+  Para acabar, hemos juntado el pitch_evaluate en el run_get_pitch y guardado el resultado en un fichero de texto output.txt, presente también en el GitHub.
 
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
@@ -120,6 +129,14 @@ Ejercicios básicos
 
    <img src="img/19.PNG" width="640" align="center">
    <img src="img/21.PNG" width="640" align="center">
+
+
+   Conclusiones:
+
+   Hemos conseguido desarrollar un sistema de detección de pitch basado en la autocorrelación aun sabiendo que es un sistema
+   que introduce errores en zonas de ruido cosa que afecta al obtener el grado de error.
+   De todos modos, los resultados obtenidos son bastante positivos dado el alto porcentaje de éxito. Hemos tenido dificultades
+   con el tema de ejecución de la práctica pero finalmente lo pudimos arreglar. Hemos aprendido mucho con esta práctica. 
 
 
 Ejercicios de ampliación

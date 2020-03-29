@@ -18,8 +18,8 @@ namespace upc {
         r[l] = (1.0F/x.size())*r[l];
     }
 
-    if (r[0] == 0.0F) //to avoid log() and divide zero 
-      r[0] = 1e-10; 
+    if (r[0] == 0.0F) //to avoid log() and divide zero
+      r[0] = 1e-10;
   }
 
   void PitchAnalyzer::set_window(Window win_type) {
@@ -62,8 +62,6 @@ namespace upc {
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
     if ((pot < -39.0F || r1norm < 0.895F) && rmaxnorm < 0.48F)
-    //if ((pot <= 0.0003F || r1norm < 1.44F) && rmaxnorm < 0.48F)
-    //if((r1norm < 0.25F || pot < 0.0005F) && rmaxnorm > 0.425F)  
       return true;
     else
       return false;
@@ -84,36 +82,13 @@ namespace upc {
 
     vector<float>::const_iterator iR = r.begin(), iRMax = iR;
 
-    /// \TODO 
+    /// \TODO
 	/// Find the lag of the maximum value of the autocorrelation away from the origin.<br>
 	/// Choices to set the minimum value of the lag are:
 	///    - The first negative value of the autocorrelation.
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-    /*float max = -1e-40;
-
-    bool negative = true;
-    while(negative || (iR - r.begin()) < npitch_min){
-      if(*iR < 0)
-        negative = false;
-      ++iR;
-    }
-
-    while((iR - r.begin()) < npitch_max){
-      if(*iR > max){
-        iRMax = iR;
-        max = *iR;
-      }
-      ++iR;
-    }
-
-    unsigned int lag = 0;
-
-    if (iRMax != r.end())
-      lag = iRMax - r.begin();
-    
-    float pot  = 10 * log10(r[0]);*/
 
     while(*iR > 0){
       ++iR;
@@ -123,11 +98,10 @@ namespace upc {
     iRMax = iR;
       while(iR != r.end()){
     if(*iR > *iRMax){
-      iRMax = iR; //iRmax: Posición donde está el máximo
+      iRMax = iR;
     }
     ++iR;
     }
-    //cout << *iRMax << endl;
     unsigned int lag = iRMax - r.begin();
 
     float pot = 10 * log10(r[0]);
@@ -139,7 +113,7 @@ namespace upc {
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
 #endif
-    
+
     if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
       return 0;
     else
