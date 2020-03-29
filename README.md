@@ -21,13 +21,13 @@ Ejercicios básicos
         /// \TODO Compute the autocorrelation r[l]
         for(unsigned int n = 0; l < x.size()-1-l; n++){
           r[l] = x[n]*x[n+l] + r[l];
-        }
+          }
           r[l] = (1.0F/x.size())*r[l];
-      }
+        }
 
-      if (r[0] == 0.0F) //to avoid log() and divide zero 
-        r[0] = 1e-10; 
-    }
+      if (r[0] == 0.0F) //to avoid log() and divide zero
+        r[0] = 1e-10;
+      }
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un sonido sonoro
      y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la
@@ -66,13 +66,13 @@ Ejercicios básicos
     <img src="img/13.PNG" width="640" align="center">
 
 
-- Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
+- Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
   * Utilice el programa `wavesurfer` para analizar las condiciones apropiadas para determinar si un
-    segmento es sonoro o sordo. 
-	
-	  - Inserte una gráfica con la detección de pitch incorporada a `wavesurfer` y, junto a ella, los 
+    segmento es sonoro o sordo.
+
+	  - Inserte una gráfica con la detección de pitch incorporada a `wavesurfer` y, junto a ella, los
 	    principales candidatos para determinar la sonoridad de la voz: el nivel de potencia de la señal
 		(r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
 		autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
@@ -81,28 +81,53 @@ Ejercicios básicos
 
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
 		en esta práctica es de 15 ms.
-    
-    
+
+    <img src="img/16.PNG" width="640" align="center">
+    <img src="img/17.PNG" width="640" align="center">
+
+
+
+        //la primera es punteao, la segunda es referncia i la tercera es .fo nostre. després ve potencia i audio .wav. explicar als comentaris que no tots ens funcionaven. home i dona. falta pitch_evaluate.
+        //en el de la dona que es sb, tenim que es pot, cont, ref, f0 normal i audio wav.
+
 
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
-  
+
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
-    y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
+    y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos
 	`pitch_db/train`..
 
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
 	 el uso de alternativas de mayor calidad (particularmente Python).
-   
+
+     La decisión de éste umbral da el resultado que puede ser observado en las siguientes figuras, donde hemos querido comprobarlo tanto para un hombre como para una mujer.
+
+     el pitch obtenido es  el  del  segundo  gráfico  desde  arriba,  mientras  que  el primero  es  el  pitch  creado  por  el  propio  wavesurfer  y  el tercer y cuarto gráficos son el pitch real del audio y la propia señal de audio respectivamente.
+
+   HOMBRE:
+
+   La primera gráfica nos muestra el pitch creado por el propio wavesurfer. La segunda y la quinta son gráficas con el pitch real y la propia señal de audio respectivamente y la tercera muestra el pitch obtenido con nuestra deicisión de umbral. Con el código que hemos adjuntado en una foto anterior, mostramos tambien la gráfica de potencia correspondiente al audio del hombre.
+
+   <img src="img/18.PNG" width="640" align="center">
+   <img src="img/20.PNG" width="640" align="center">
+
+   MUJER:
+
+   Primera gráfica es la potencia, obtenida de la misma manera que el anterior. La segunda es el pitch generado por wavesurfer. Luego tenemos el pitch del propio audio que lo comparamos con el de abajo que es el que hemos creado nosotras. Y por último, la muestra de audio de la mujer.
+
+   <img src="img/19.PNG" width="640" align="center">
+   <img src="img/21.PNG" width="640" align="center">
+
 
 Ejercicios de ampliación
 ------------------------
 
 - Usando la librería `docopt_cpp`, modifique el fichero `get_pitch.cpp` para incorporar los parámetros del
   detector a los argumentos de la línea de comandos.
-  
+
   Esta técnica le resultará especialmente útil para optimizar los parámetros del detector. Recuerde que
   una parte importante de la evaluación recaerá en el resultado obtenido en la detección de pitch en la
   base de datos.
@@ -133,7 +158,7 @@ Ejercicios de ampliación
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
   la longitud del filtro.
-   
+
 
 Evaluación *ciega* del detector
 -------------------------------
